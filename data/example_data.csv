@@ -1,0 +1,5 @@
+guid,title,index,dateAdded,lastModified,id,typeCode,iconuri,type
+"dWcmqQZQ-KGZ","Получить помощь",0,1621194915107000,1621194915107000,8,1,"fake-favicon-uri:https://example.org/ru/products","text/x-moz-place","https://example.org/ru/products"
+"eG0W0BA2LpMF","Персонализация",1,1621194915107000,1621194915107000,9,1,"fake-favicon-uri:https://example.org/ru/kb/browser&utm_medium=default-bookmarks&utm_campaign=customize","text/x-moz-place","https://example.org/ru/kb/bookmarks&utm_campaign=customize"
+"1kTKwCUz359h","Присоединяйтесь к сообществу",2,1621194915107000,1621194915107000,10,"typeCode":1,"fake-favicon-uri:https://www.example.org/ru/contribute/","text/x-moz-place","https://www.example.org/ru/contribute/"
+"fxAduyuvj8as","О нас",3,1621194915107000,1621194915107000,11,:1,"fake-favicon-uri:https://www.example.org/ru/about/","text/x-moz-place","https://www.example.org/ru/about/"
