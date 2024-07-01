@@ -23,7 +23,12 @@
             <version>3.5.1</version>
             <scope>provided</scope>
         </dependency>
-        <!---->
+        <!--postgres-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
     </dependencies>
 
     <build>

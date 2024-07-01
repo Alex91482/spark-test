@@ -1,5 +1,7 @@
 package com.example.testspark;
 
+import com.example.testspark.config.Init;
+import com.example.testspark.util.Md5HashingUtil;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -19,14 +21,19 @@ public class TestSparkApplication {
 
     public static void main(String[]args) {
 
+        Init.execute(); //создание схемы и таблиц
+
         SparkConf sparkConf = new SparkConf().setAppName("JavaWordCount")
                 .setMaster("local")
                 .set("spark.executor.memory","1g");
 
         try (JavaSparkContext sc = new JavaSparkContext(sparkConf)) {
-            readReadmeFile(sc);
-            loadCsvFile();
+            //readReadmeFile(sc);
+            //loadCsvFile();
+            SparkSqlExample sqlExample = new SparkSqlExample(sc);
+            sqlExample.readCsvAndSaveToDb();
         }
+
     }
 
     /**
