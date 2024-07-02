@@ -34,7 +34,7 @@ public class SparkSqlExample {
 
     /**
      * Создание ользовательской функции
-     * @param sc объект Spark-контекста
+     * @param sc версия SparkContext, совместимая с Java, которая возвращает JavaRDD и работает с коллекциями Java
      */
     private void createCustomUdf(JavaSparkContext sc) {
         SQLContext sqlContext= new SQLContext(sc);
