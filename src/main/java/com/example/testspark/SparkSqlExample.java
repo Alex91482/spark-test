@@ -28,21 +28,6 @@ public class SparkSqlExample {
         this.sqlDbConfig = SqlDbConfig.getSqlDbConfig();
         this.exampleDAO = new ExampleDAOImpl();
         this.sc = sc;
-
-        createCustomUdf(sc);
-    }
-
-    /**
-     * Создание ользовательской функции
-     * @param sc версия SparkContext, совместимая с Java, которая возвращает JavaRDD и работает с коллекциями Java
-     */
-    private void createCustomUdf(JavaSparkContext sc) {
-        SQLContext sqlContext= new SQLContext(sc);
-        sqlContext.udf().register(
-                COLUMN_NAME_MD5,
-                (UDF1<String, String>) Md5HashingUtil::getMd5Hash,
-                DataTypes.StringType
-        );
     }
 
     /**
