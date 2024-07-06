@@ -23,10 +23,13 @@ public class TestSparkApplication {
 
             init(sc);
 
+            var datasetExample = new SparkDatasetExample(sc);
+            datasetExample.createDatasetExampleModel();
+            //datasetExample.createDatasetString();
+            //datasetExample.joinDataCsvJson();
+            //datasetExample.loadJsonFile();
+            //datasetExample.loadCsvFile();
             var rddExample = new SparkRddExample(sc);
-            rddExample.joinDataCsvJson();
-            //rddExample.loadJsonFile();
-            //rddExample.loadCsvFile();
             //rddExample.readReadmeFile();
             var sqlExample = new SparkSqlExample(sc);
             //sqlExample.readCsvAndSaveToDb();

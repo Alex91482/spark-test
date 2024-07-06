@@ -3,15 +3,11 @@ package com.example.testspark;
 import com.example.testspark.config.SqlDbConfig;
 import com.example.testspark.dao.impl.ExampleDAOImpl;
 import com.example.testspark.dao.interfaces.ExampleDAO;
-import com.example.testspark.util.Md5HashingUtil;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SQLContext;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.api.java.UDF1;
-import org.apache.spark.sql.types.DataTypes;
 
 import static org.apache.spark.sql.functions.callUDF;
 
