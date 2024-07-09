@@ -24,7 +24,8 @@ public class TestSparkApplication {
             init(sc);
 
             var datasetExample = new SparkDatasetExample(sc);
-            datasetExample.createDatasetExampleModel();
+            datasetExample.conversionOperations();
+            //datasetExample.createDatasetExampleModel();
             //datasetExample.createDatasetString();
             //datasetExample.joinDataCsvJson();
             //datasetExample.loadJsonFile();
