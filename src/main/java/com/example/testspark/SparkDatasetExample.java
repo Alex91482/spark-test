@@ -62,14 +62,16 @@ public class SparkDatasetExample {
                 )
                 .groupBy(df_1.col("PS10"))
                 .count()
-                .sort(df_1.col("PS10"))
-                ;
+                .sort(df_1.col("PS10"));
+
+        //var zero = lit(0);
+        //var df_reduce = df_1.withColumn("number_of_devices", );
 
         System.out.println("Total number: " + df.count());
         System.out.println("Filtered quantity: " + df_1.count());
         ShowDebugInfo.getPartitionAndSchemaInfo(df_max);
         ShowDebugInfo.getPartitionAndSchemaInfo(df_min);
-        ShowDebugInfo.getPartitionAndSchemaInfo(df_group_by, 10);
+        ShowDebugInfo.getPartitionAndSchemaInfo(df_group_by, 10, false);
 
     }
 

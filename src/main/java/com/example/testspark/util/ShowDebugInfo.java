@@ -24,4 +24,18 @@ public class ShowDebugInfo {
         df.show(showCount);
         df.printSchema();
     }
+
+    /**
+     * Метод выодит в консоль количество разделов (количество разделов в фрейме данных), первую строку данныхб схему данных
+     * @param df абор строго типизированных объектов JVM
+     * @param showCount количество строк которое нужно вывести
+     * @param showSchema флаг нужно ли показать схему
+     */
+    public static void getPartitionAndSchemaInfo(Dataset<?> df, int showCount, boolean showSchema) {
+        System.out.println("Partition count repartition: " + df.rdd().partitions().length);
+        df.show(showCount);
+        if (showSchema) {
+            df.printSchema();
+        }
+    }
 }
