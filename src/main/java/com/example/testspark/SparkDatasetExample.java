@@ -12,6 +12,10 @@ import org.apache.spark.sql.SparkSession;
 import java.util.Arrays;
 
 import static org.apache.spark.sql.functions.callUDF;
+import static org.apache.spark.sql.functions.coalesce;
+import static org.apache.spark.sql.functions.col;
+import static org.apache.spark.sql.functions.expr;
+import static org.apache.spark.sql.functions.lit;
 import static org.apache.spark.sql.functions.max;
 import static org.apache.spark.sql.functions.min;
 
@@ -64,14 +68,33 @@ public class SparkDatasetExample {
                 .count()
                 .sort(df_1.col("PS10"));
 
-        //var zero = lit(0);
-        //var df_reduce = df_1.withColumn("number_of_devices", );
+        var zero = lit(0);
+        var df_expr_sum = df_1
+                .drop("C1","CInt1","CInt2_7", "CInt3_1","CInt3_2","CInt3_3","CInt3_E","CInt5_1","CInt5_2","CInt5_8", "CInt5_9",
+                        "CInt5_5","CInt5_6","CInt5_10","CInt5_7"," M1"," C2","Int1","Int2")
+                .withColumn("c2_1", coalesce(col("CInt2_1"), zero))
+                .withColumn("c2_2", coalesce(col("CInt2_2"), zero))
+                .withColumn("c2_3", coalesce(col("CInt2_3"), zero))
+                .withColumn("c2_5", coalesce(col("CInt2_5"), zero))
+                .withColumn("c2_6", coalesce(col("CInt2_6"), zero))
+                .withColumn("c2_8", coalesce(col("CInt2_8"), zero))
+                .withColumn("c2_9", coalesce(col("CInt2_9"), zero))
+                .drop("CInt2_1","CInt2_2","CInt2_3","CInt2_5","CInt2_6","CInt2_8","CInt2_9")
+                .withColumnRenamed("c2_1", "CInt2_1")
+                .withColumnRenamed("c2_2", "CInt2_2")
+                .withColumnRenamed("c2_3", "CInt2_3")
+                .withColumnRenamed("c2_5", "CInt2_5")
+                .withColumnRenamed("c2_6", "CInt2_6")
+                .withColumnRenamed("c2_8", "CInt2_8")
+                .withColumnRenamed("c2_9", "CInt2_9")
+                .withColumn("number_of_devices", expr("(CInt2_1 + CInt2_2 + CInt2_3 + CInt2_5 + CInt2_6 + CInt2_8 + CInt2_9)"));
 
         System.out.println("Total number: " + df.count());
         System.out.println("Filtered quantity: " + df_1.count());
         ShowDebugInfo.getPartitionAndSchemaInfo(df_max);
         ShowDebugInfo.getPartitionAndSchemaInfo(df_min);
         ShowDebugInfo.getPartitionAndSchemaInfo(df_group_by, 10, false);
+        ShowDebugInfo.getPartitionAndSchemaInfo(df_expr_sum, 10, false);
 
     }
 
