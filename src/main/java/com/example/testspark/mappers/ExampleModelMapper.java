@@ -1,7 +1,6 @@
 package com.example.testspark.mappers;
 
 import com.example.testspark.dao.entity.ExampleModel;
-import com.example.testspark.util.Md5HashingUtil;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.sql.Row;
 

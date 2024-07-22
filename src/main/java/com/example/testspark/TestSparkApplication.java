@@ -1,6 +1,6 @@
 package com.example.testspark;
 
-import com.example.testspark.config.Init;
+import com.example.testspark.service.CalculationsArea;
 import com.example.testspark.util.Md5HashingUtil;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -15,16 +15,19 @@ public class TestSparkApplication {
 
     public static void main(String[]args) {
 
-        SparkConf sparkConf = new SparkConf().setAppName("JavaWordCount")
-                .setMaster("local")
+        SparkConf sparkConf = new SparkConf()
+                .setAppName("JavaWordCount")
+                .setMaster("local") //local[1] в скобках указывается количество системных потоков
                 .set("spark.executor.memory","1g");
 
         try (var sc = new JavaSparkContext(sparkConf)) {
 
             init(sc);
 
+            var calculationArea = new CalculationsArea();
+            calculationArea.execute();
             var datasetExample = new SparkDatasetExample(sc);
-            datasetExample.conversionOperations();
+            //datasetExample.conversionOperations();
             //datasetExample.createDatasetExampleModel();
             //datasetExample.createDatasetString();
             //datasetExample.joinDataCsvJson();
