@@ -4,18 +4,16 @@ import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.sql.Row;
 import scala.Tuple2;
 
-import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class AreaMapper implements MapFunction<Row, Double>
-{
+public class AreaMapper implements MapFunction<Row, Double> {
 
-    @Serial
     private static final long serialVersionUID = 45679L;
 
     @Override
@@ -85,7 +83,7 @@ public class AreaMapper implements MapFunction<Row, Double>
         Tuple2<Integer, Integer> midpointBottom = null;
 
         var sortArr = new ArrayList<Tuple2<Integer, Integer>>();
-        var xSort = copyArr.stream().sorted(Comparator.comparing(Tuple2::_1)).toList();
+        var xSort = copyArr.stream().sorted(Comparator.comparing(Tuple2::_1)).collect(Collectors.toList());
         //поиск точки начала посторения фигуры
         //если минимальные значения по x равны берем минимальное из них по y
         if (Objects.equals(xSort.get(0)._1, xSort.get(1)._1)) {

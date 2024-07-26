@@ -2,11 +2,8 @@ package com.example.testspark.redusers;
 
 import org.apache.spark.api.java.function.ReduceFunction;
 
-import java.io.Serial;
-
 public class AreaReducer implements ReduceFunction<Double> {
 
-    @Serial
     private static final long serialVersionUID = 45679L;
 
     @Override

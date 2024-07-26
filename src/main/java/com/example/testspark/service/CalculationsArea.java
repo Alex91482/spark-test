@@ -3,7 +3,6 @@ package com.example.testspark.service;
 import com.example.testspark.mappers.AreaMapper;
 import com.example.testspark.redusers.AreaReducer;
 import com.example.testspark.util.ShowDebugInfo;
-import org.apache.spark.api.java.function.ReduceFunction;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
@@ -20,7 +19,7 @@ public class CalculationsArea {
      */
     public void execute() {
         SparkSession spark = SparkSession.builder()
-                .appName("Calculations Pi")
+                .appName("Calculations Area")
                 .master("local[*]")
                 .getOrCreate();
         var coordinatesOfFigures = new ArrayList<Tuple4<Tuple2<Integer, Integer>, Tuple2<Integer, Integer>, Tuple2<Integer, Integer>, Tuple2<Integer, Integer>>>();

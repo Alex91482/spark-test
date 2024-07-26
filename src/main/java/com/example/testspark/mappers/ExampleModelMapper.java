@@ -4,11 +4,8 @@ import com.example.testspark.dao.entity.ExampleModel;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.sql.Row;
 
-import java.io.Serial;
-
 public class ExampleModelMapper implements MapFunction<Row, ExampleModel> {
 
-    @Serial
     private static final long serialVersionUID = 42L;
 
     public ExampleModel call(Row value) {
