@@ -28,6 +28,7 @@ public class SparkDatasetExample {
     private static final String JSON1_PATH = "./data/example_json_data.json";
     private static final String OPEN_DATA = "./data/open_data/data-20240410-structure-20240410.csv";
     private static final String OPEN_DATA_STRUCTURE = "./data/open_data/structure-20240410.csv";
+    private static final String OPEN_DATA_OKIN = "./data/open_data/data-OKIN-2014.csv";
     private static final String COLUMN_NAME_MD5 = "_md5";
 
     private final JavaSparkContext sc;
@@ -67,7 +68,7 @@ public class SparkDatasetExample {
                 .option("dateFormat", "yyyy-MM-dd")
                 .option("quote", "\"")
                 .schema(schema)
-                .load("data/open_data/data-OKIN-2014.csv");
+                .load(OPEN_DATA_OKIN);
 
         ShowDebugInfo.getPartitionAndSchemaInfo(df);
     }
