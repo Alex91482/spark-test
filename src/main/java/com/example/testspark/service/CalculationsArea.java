@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class CalculationsArea {
 
     /**
-     * Создание 100 неправильных четырехугольников с последующем вычмслением суммы каждого и сложением всех площадей
+     * Создание 100 неправильных четырехугольников с последующем вычмслением площади каждого и сложением всех площадей
      */
     public void execute() {
         SparkSession spark = SparkSession.builder()

@@ -8,6 +8,9 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.types.DataTypes;
+import org.apache.spark.sql.types.StructField;
+import org.apache.spark.sql.types.StructType;
 
 import java.util.Arrays;
 
@@ -31,6 +34,42 @@ public class SparkDatasetExample {
 
     public SparkDatasetExample(JavaSparkContext sc) {
         this.sc = sc;
+    }
+
+
+    /**
+     * Создание схемы для загружаемых данных
+     */
+    public void createStructure() {
+        SparkSession spark = SparkSession.builder()
+                .appName("Add schema ta data")
+                .master("local")
+                .getOrCreate();
+        StructType schema = DataTypes.createStructType(new StructField[]{
+                DataTypes.createStructField("Идентификатор записи", DataTypes.LongType , true),
+                DataTypes.createStructField("Фасет", DataTypes.StringType , true),
+                DataTypes.createStructField("Код позиции", DataTypes.StringType , true),
+                DataTypes.createStructField("Уникальный код (составной ключ)", DataTypes.StringType , true),
+                DataTypes.createStructField("Наименование", DataTypes.StringType , true),
+                DataTypes.createStructField("Описание", DataTypes.StringType , true),
+                DataTypes.createStructField("Дата актуализации", DataTypes.DateType , true),
+                DataTypes.createStructField("Дата деактуализации", DataTypes.DateType , true),
+                DataTypes.createStructField("Номер изменения (актуализации)", DataTypes.IntegerType , true),
+                DataTypes.createStructField("Номер изменения (деактуализации)", DataTypes.IntegerType , true),
+                DataTypes.createStructField("Дата введения в действие", DataTypes.DateType , true),
+                DataTypes.createStructField("Статус записи", DataTypes.StringType , true)
+        });
+        Dataset<Row> df = spark.read()
+                .format("csv")
+                .option("header", "true")
+                .option("multiline", true)
+                .option("sep", ",")
+                .option("dateFormat", "yyyy-MM-dd")
+                .option("quote", "\"")
+                .schema(schema)
+                .load("data/open_data/data-OKIN-2014.csv");
+
+        ShowDebugInfo.getPartitionAndSchemaInfo(df);
     }
 
     /**
