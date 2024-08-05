@@ -12,6 +12,8 @@ import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 
 import static org.apache.spark.sql.functions.callUDF;
@@ -29,6 +31,7 @@ public class SparkDatasetExample {
     private static final String OPEN_DATA = "./data/open_data/data-20240410-structure-20240410.csv";
     private static final String OPEN_DATA_STRUCTURE = "./data/open_data/structure-20240410.csv";
     private static final String OPEN_DATA_OKIN = "./data/open_data/data-OKIN-2014.csv";
+    private static final String REPORT_ON_CONTROL_ACTIVITIES = "./data/open_data/data-20180725-structure-20140926.xml";
     private static final String COLUMN_NAME_MD5 = "_md5";
 
     private final JavaSparkContext sc;
@@ -37,6 +40,22 @@ public class SparkDatasetExample {
         this.sc = sc;
     }
 
+    /**
+     * Потребление данных из xml файла
+     */
+    public void creatDatasetXml() {
+        SparkSession spark = SparkSession.builder()
+                .appName("Frame from xml")
+                .master("local")
+                .getOrCreate();
+        Dataset<Row> df = spark.read()
+                .format("com.databricks.spark.xml")
+                .option("rootTag", "banks")
+                .option("rowTag", "bank")
+                .load(REPORT_ON_CONTROL_ACTIVITIES);
+
+        ShowDebugInfo.getPartitionAndSchemaInfo(df, 10);
+    }
 
     /**
      * Создание схемы для загружаемых данных

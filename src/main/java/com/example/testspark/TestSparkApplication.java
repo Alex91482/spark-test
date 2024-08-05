@@ -27,7 +27,8 @@ public class TestSparkApplication {
             var calculationArea = new CalculationsArea();
             //calculationArea.execute();
             var datasetExample = new SparkDatasetExample(sc);
-            datasetExample. createStructure();
+            datasetExample.creatDatasetXml();
+            //datasetExample. createStructure();
             //datasetExample.conversionOperations();
             //datasetExample.createDatasetExampleModel();
             //datasetExample.createDatasetString();
