@@ -8,12 +8,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.types.DataTypes;
-import org.apache.spark.sql.types.StructField;
-import org.apache.spark.sql.types.StructType;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Arrays;
 
 import static org.apache.spark.sql.functions.callUDF;
@@ -30,66 +25,12 @@ public class SparkDatasetExample {
     private static final String JSON1_PATH = "./data/example_json_data.json";
     private static final String OPEN_DATA = "./data/open_data/data-20240410-structure-20240410.csv";
     private static final String OPEN_DATA_STRUCTURE = "./data/open_data/structure-20240410.csv";
-    private static final String OPEN_DATA_OKIN = "./data/open_data/data-OKIN-2014.csv";
-    private static final String REPORT_ON_CONTROL_ACTIVITIES = "./data/open_data/data-20180725-structure-20140926.xml";
     private static final String COLUMN_NAME_MD5 = "_md5";
 
     private final JavaSparkContext sc;
 
     public SparkDatasetExample(JavaSparkContext sc) {
         this.sc = sc;
-    }
-
-    /**
-     * Потребление данных из xml файла
-     */
-    public void creatDatasetXml() {
-        SparkSession spark = SparkSession.builder()
-                .appName("Frame from xml")
-                .master("local")
-                .getOrCreate();
-        Dataset<Row> df = spark.read()
-                .format("com.databricks.spark.xml")
-                .option("rootTag", "banks")
-                .option("rowTag", "bank")
-                .load(REPORT_ON_CONTROL_ACTIVITIES);
-
-        ShowDebugInfo.getPartitionAndSchemaInfo(df, 10);
-    }
-
-    /**
-     * Создание схемы для загружаемых данных
-     */
-    public void createStructure() {
-        SparkSession spark = SparkSession.builder()
-                .appName("Add schema ta data")
-                .master("local")
-                .getOrCreate();
-        StructType schema = DataTypes.createStructType(new StructField[]{
-                DataTypes.createStructField("Идентификатор записи", DataTypes.LongType , true),
-                DataTypes.createStructField("Фасет", DataTypes.StringType , true),
-                DataTypes.createStructField("Код позиции", DataTypes.StringType , true),
-                DataTypes.createStructField("Уникальный код (составной ключ)", DataTypes.StringType , true),
-                DataTypes.createStructField("Наименование", DataTypes.StringType , true),
-                DataTypes.createStructField("Описание", DataTypes.StringType , true),
-                DataTypes.createStructField("Дата актуализации", DataTypes.DateType , true),
-                DataTypes.createStructField("Дата деактуализации", DataTypes.DateType , true),
-                DataTypes.createStructField("Номер изменения (актуализации)", DataTypes.IntegerType , true),
-                DataTypes.createStructField("Номер изменения (деактуализации)", DataTypes.IntegerType , true),
-                DataTypes.createStructField("Дата введения в действие", DataTypes.DateType , true),
-                DataTypes.createStructField("Статус записи", DataTypes.StringType , true)
-        });
-        Dataset<Row> df = spark.read()
-                .format("csv")
-                .option("header", "true")
-                .option("multiline", true)
-                .option("sep", ",")
-                .option("dateFormat", "yyyy-MM-dd")
-                .option("quote", "\"")
-                .schema(schema)
-                .load(OPEN_DATA_OKIN);
-
-        ShowDebugInfo.getPartitionAndSchemaInfo(df);
     }
 
     /**
@@ -210,21 +151,6 @@ public class SparkDatasetExample {
                 .format("csv")
                 .option("header", true)
                 .load(CSV1_PATH);
-
-        df.show(2);
-        return df;
-    }
-
-    /**
-     * Загрузка json
-     */
-    public Dataset<Row> loadJsonFile() {
-        SparkSession spark = SparkSession.builder()
-                .appName("json read")
-                .master("local")
-                .getOrCreate();
-        Dataset<Row> df = spark.read()
-                .json(JSON1_PATH);
 
         df.show(2);
         return df;

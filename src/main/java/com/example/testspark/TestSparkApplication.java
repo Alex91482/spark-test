@@ -24,11 +24,16 @@ public class TestSparkApplication {
 
             init(sc);
 
+            var dataConsumption = new DataConsumptionExample(sc);
+            dataConsumption.loadParquetFile();
+            //dataConsumption.loadOrcFile();
+            //dataConsumption.loadAvroFile();
+            //dataConsumption.createStructure();
+            //dataConsumption.createDatasetXml();
+            //dataConsumption.loadJsonFile();
             var calculationArea = new CalculationsArea();
             //calculationArea.execute();
             var datasetExample = new SparkDatasetExample(sc);
-            datasetExample.creatDatasetXml();
-            //datasetExample. createStructure();
             //datasetExample.conversionOperations();
             //datasetExample.createDatasetExampleModel();
             //datasetExample.createDatasetString();

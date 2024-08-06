@@ -23,6 +23,12 @@
             <version>3.5.1</version>
             <scope>provided</scope>
         </dependency>
+        <!--data help-->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-avro_2.13</artifactId>
+            <version>3.5.1</version>
+        </dependency>
         <dependency>
             <groupId>com.databricks</groupId>
             <artifactId>spark-xml_2.13</artifactId>
