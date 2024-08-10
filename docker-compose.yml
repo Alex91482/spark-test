@@ -9,3 +9,19 @@ services:
       POSTGRES_PASSWORD: "pgdb"
     ports:
       - "5432:5432"
+  elasticsearch:
+    image: bitnami/elasticsearch:latest
+    environment:
+      - xpack.security.enabled=false
+      - ELASTIC_PASSWORD=password
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+  clickhouse:
+    image: bitnami/clickhouse:latest
+    ports:
+      - "8123:8123"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=no
+      - CLICKHOUSE_ADMIN_PASSWORD=admin

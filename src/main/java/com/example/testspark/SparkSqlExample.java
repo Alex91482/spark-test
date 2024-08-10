@@ -3,6 +3,7 @@ package com.example.testspark;
 import com.example.testspark.config.SqlDbConfig;
 import com.example.testspark.dao.impl.ExampleDAOImpl;
 import com.example.testspark.dao.interfaces.ExampleDAO;
+import com.example.testspark.util.ShowDebugInfo;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -24,6 +25,24 @@ public class SparkSqlExample {
         this.sqlDbConfig = SqlDbConfig.getSqlDbConfig();
         this.exampleDAO = new ExampleDAOImpl();
         this.sc = sc;
+    }
+
+    /**
+     * Получить данный из БД Postgres, из таблмцы example_table находящийся в схеме example
+     */
+    public void getDataExampleTable() {
+        SparkSession spark = SparkSession.builder()
+                .appName("Postgres get data")
+                .master("local")
+                .getOrCreate();
+        Dataset<Row> df = spark.read().jdbc(
+                sqlDbConfig.getDdUri(),
+                "example.example_table",
+                sqlDbConfig.getProperties()
+        );
+        df = df.orderBy(df.col("md5"));
+
+        ShowDebugInfo.getPartitionAndSchemaInfo(df, 10);
     }
 
     /**

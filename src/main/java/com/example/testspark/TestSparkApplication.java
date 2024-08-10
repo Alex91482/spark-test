@@ -1,5 +1,6 @@
 package com.example.testspark;
 
+import com.example.testspark.config.Init;
 import com.example.testspark.service.CalculationsArea;
 import com.example.testspark.util.Md5HashingUtil;
 import org.apache.spark.SparkConf;
@@ -25,7 +26,7 @@ public class TestSparkApplication {
             init(sc);
 
             var dataConsumption = new DataConsumptionExample(sc);
-            dataConsumption.loadParquetFile();
+            //dataConsumption.loadParquetFile();
             //dataConsumption.loadOrcFile();
             //dataConsumption.loadAvroFile();
             //dataConsumption.createStructure();
@@ -44,6 +45,7 @@ public class TestSparkApplication {
             //rddExample.readReadmeFile();
             var sqlExample = new SparkSqlExample(sc);
             //sqlExample.readCsvAndSaveToDb();
+            sqlExample.getDataExampleTable();
         }
     }
 
