@@ -1,6 +1,6 @@
 package com.example.testspark.dao.impl;
 
-import com.example.testspark.config.SqlDbConfig;
+import com.example.testspark.config.PostgresSqlDbConfig;
 import com.example.testspark.dao.entity.ExampleModel;
 import com.example.testspark.dao.interfaces.ExampleDAO;
 
@@ -16,7 +16,7 @@ public class ExampleDAOImpl implements ExampleDAO {
 
     @Override
     public void save(ExampleModel exampleModel) throws SQLException {
-        Connection connection = SqlDbConfig.getSqlDbConfig().getPostgresConnection();
+        Connection connection = PostgresSqlDbConfig.getSqlDbConfig().getPostgresConnection();
         String sql = "INSERT INTO " + EXAMPLE_TABLE + " (guid, title, index_1, date_added, last_modified, id, type_code, iconuri, type_1, uri, md5) " +
                 "values (?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -36,7 +36,7 @@ public class ExampleDAOImpl implements ExampleDAO {
 
     @Override
     public Long getExampleTableIsExist() throws SQLException {
-        Connection connection = SqlDbConfig.getSqlDbConfig().getPostgresConnection();
+        Connection connection = PostgresSqlDbConfig.getSqlDbConfig().getPostgresConnection();
         String sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '"+ EXAMPLE_TABLE +"';";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -47,7 +47,7 @@ public class ExampleDAOImpl implements ExampleDAO {
     @Override
     public void createExampleSchema() {
         try {
-            Connection connection = SqlDbConfig.getSqlDbConfig().getPostgresConnection();
+            Connection connection = PostgresSqlDbConfig.getSqlDbConfig().getPostgresConnection();
             String sql = "CREATE SCHEMA IF NOT EXISTS " + EXAMPLE_SCHEMA + ";";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
@@ -60,7 +60,7 @@ public class ExampleDAOImpl implements ExampleDAO {
     @Override
     public void createExampleTable() {
         try {
-            Connection connection = SqlDbConfig.getSqlDbConfig().getPostgresConnection();
+            Connection connection = PostgresSqlDbConfig.getSqlDbConfig().getPostgresConnection();
             String sql = "CREATE TABLE IF NOT EXISTS " +
                     EXAMPLE_SCHEMA + "." + EXAMPLE_TABLE +
                     " (" +

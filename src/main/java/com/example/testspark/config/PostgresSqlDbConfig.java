@@ -5,29 +5,29 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class SqlDbConfig {
+public class PostgresSqlDbConfig {
 
     private Connection connection;
-    private static SqlDbConfig sqlDbConfig;
+    private static PostgresSqlDbConfig postgresSqlDbConfig;
     private final Properties properties;
     private final String DB_URI = "jdbc:postgresql://localhost/postgres";
 
-    private SqlDbConfig() {
+    private PostgresSqlDbConfig() {
         this.properties = new Properties();
         this.properties.setProperty("driver", "org.postgresql.Driver");
-        this.properties.setProperty("user", "user");
-        this.properties.setProperty("password", "pgdb");
+        this.properties.setProperty("user", System.getProperty("db.user", "user"));
+        this.properties.setProperty("password", System.getProperty("db.pass", "pgdb"));
     }
 
     /**
      * Получить экземпляр класса с настройками для подключения к БД
      * @return возвращает экземпляр класса с настройками для подключения к БД
      */
-    public static SqlDbConfig getSqlDbConfig() {
-        if (sqlDbConfig == null) {
-            sqlDbConfig = new SqlDbConfig();
+    public static PostgresSqlDbConfig getSqlDbConfig() {
+        if (postgresSqlDbConfig == null) {
+            postgresSqlDbConfig = new PostgresSqlDbConfig();
         }
-        return sqlDbConfig;
+        return postgresSqlDbConfig;
     }
 
     /**

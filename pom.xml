@@ -40,6 +40,16 @@
             <artifactId>postgresql</artifactId>
             <version>42.7.3</version>
         </dependency>
+        <dependency>
+            <groupId>com.clickhouse</groupId>
+            <artifactId>clickhouse-jdbc</artifactId>
+            <version>0.6.3</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch-hadoop</artifactId>
+            <version>8.15.0</version>
+        </dependency>-->
         <!--read json-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
