@@ -28,6 +28,20 @@ public class SparkSqlExample {
     }
 
     /**
+     * Метод для выполения простых запросов на выборку из бд
+     * @param spark ссылка на SparkSession
+     * @param sql запрос sql
+     * @return набор данных
+     */
+    private Dataset<Row> executeQuerySelect(SparkSession spark, String sql) {
+        return spark.read().jdbc(
+                postgresSqlDbConfig.getDdUri(),
+                "(" + sql + ") example_0",
+                postgresSqlDbConfig.getProperties()
+        );
+    }
+
+    /**
      * Получить данный из БД Postgres, из таблмцы example_table находящийся в схеме example
      */
     public void getDataExampleTable() {
@@ -37,22 +51,16 @@ public class SparkSqlExample {
                 .getOrCreate();
         Dataset<Row> df = spark.read().jdbc(
                 postgresSqlDbConfig.getDdUri(),
-                "example.example_table",
+                exampleDAO.getTableAndSchema(),
                 postgresSqlDbConfig.getProperties()
         );
         df = df.orderBy(df.col("md5"));
-
-        ShowDebugInfo.getPartitionAndSchemaInfo(df, 10);
-
         var sql = "select * " +
                 "from example.example_table ee " +
                 "where ee.index_1 like '%2%' and ee.iconuri like '%www%'";
-        Dataset<Row> df1 = spark.read().jdbc(
-                postgresSqlDbConfig.getDdUri(),
-                "(" + sql + ") example_0",
-                postgresSqlDbConfig.getProperties()
-        );
+        Dataset<Row> df1 = executeQuerySelect(spark, sql);
 
+        ShowDebugInfo.getPartitionAndSchemaInfo(df, 10);
         ShowDebugInfo.getPartitionAndSchemaInfo(df1, 10);
     }
 

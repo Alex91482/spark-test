@@ -15,8 +15,8 @@ public class PostgresSqlDbConfig {
     private PostgresSqlDbConfig() {
         this.properties = new Properties();
         this.properties.setProperty("driver", "org.postgresql.Driver");
-        this.properties.setProperty("user", System.getProperty("db.user", "user"));
-        this.properties.setProperty("password", System.getProperty("db.pass", "pgdb"));
+        this.properties.setProperty("user", System.getProperty("db.postgres.user", "user"));
+        this.properties.setProperty("password", System.getProperty("db.postgres.pass", "pgdb"));
     }
 
     /**

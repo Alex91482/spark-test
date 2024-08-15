@@ -28,7 +28,7 @@ public class TestSparkApplication {
             var dataConsumption = new DataConsumptionExample(sc);
             //dataConsumption.loadParquetFile();
             //dataConsumption.loadOrcFile();
-            //dataConsumption.loadAvroFile();
+            dataConsumption.loadAvroFile();
             //dataConsumption.createStructure();
             //dataConsumption.createDatasetXml();
             //dataConsumption.loadJsonFile();
@@ -45,7 +45,7 @@ public class TestSparkApplication {
             //rddExample.readReadmeFile();
             var sqlExample = new SparkSqlExample(sc);
             //sqlExample.readCsvAndSaveToDb();
-            sqlExample.getDataExampleTable();
+            //sqlExample.getDataExampleTable();
         }
     }
 

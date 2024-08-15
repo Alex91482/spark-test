@@ -8,6 +8,8 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
@@ -20,6 +22,8 @@ import static org.apache.spark.sql.functions.max;
 import static org.apache.spark.sql.functions.min;
 
 public class SparkDatasetExample {
+
+    private static final Logger logger = LoggerFactory.getLogger(SparkDatasetExample.class);
 
     private static final String CSV1_PATH = "./data/example_data.csv";
     private static final String JSON1_PATH = "./data/example_json_data.json";
@@ -89,8 +93,8 @@ public class SparkDatasetExample {
                 .withColumnRenamed("c2_9", "CInt2_9")
                 .withColumn("number_of_devices", expr("(CInt2_1 + CInt2_2 + CInt2_3 + CInt2_5 + CInt2_6 + CInt2_8 + CInt2_9)"));
 
-        System.out.println("Total number: " + df.count());
-        System.out.println("Filtered quantity: " + df_1.count());
+        logger.info("Total number: " + df.count());
+        logger.info("Filtered quantity: " + df_1.count());
         ShowDebugInfo.getPartitionAndSchemaInfo(df_max);
         ShowDebugInfo.getPartitionAndSchemaInfo(df_min);
         ShowDebugInfo.getPartitionAndSchemaInfo(df_group_by, 10, false);

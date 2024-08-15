@@ -3,6 +3,8 @@ package com.example.testspark;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import scala.Tuple2;
 
 import java.util.Arrays;
@@ -10,6 +12,8 @@ import java.util.List;
 
 
 public class SparkRddExample {
+
+    private static final Logger logger = LoggerFactory.getLogger(SparkRddExample.class);
 
     private static final String README_PATH = "./README.md";
 
@@ -30,7 +34,7 @@ public class SparkRddExample {
 
         List<Tuple2<String, Integer>> output = counts.collect();
         for (Tuple2<?, ?> tuple : output) {
-            System.out.println(tuple._1() + ": " + tuple._2());
+            logger.info(tuple._1() + ": " + tuple._2());
         }
     }
 }
