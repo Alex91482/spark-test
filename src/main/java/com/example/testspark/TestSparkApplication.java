@@ -51,6 +51,7 @@ public class TestSparkApplication {
 
     private static void init(JavaSparkContext sc) {
         //Init.execute(); //создание схемы и таблиц
+        //Init.executeElastic(); //создание раздела
         createCustomUdf(sc); //инициализация кастомных функций
     }
 

@@ -52,11 +52,12 @@
             <artifactId>elasticsearch-hadoop</artifactId>
             <version>8.15.0</version>
         </dependency>-->
-        <!--<dependency>
+        <dependency>
             <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch-spark-30_2.12</artifactId>
+            <artifactId>elasticsearch-spark-30_2.13</artifactId>
             <version>8.15.0</version>
-        </dependency>-->
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>co.elastic.clients</groupId>
             <artifactId>elasticsearch-java</artifactId>
