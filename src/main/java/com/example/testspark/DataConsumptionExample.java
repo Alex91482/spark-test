@@ -71,6 +71,23 @@ public class DataConsumptionExample {
     }
 
     /**
+     * Загрузка данных из файла avro
+     * @return возвращает данные полученные из файла
+     */
+    public Dataset<Row> getAvroFileData() {
+        SparkSession spark = SparkSession.builder()
+                .appName("Avro")
+                .master("local")
+                .getOrCreate();
+        Dataset<Row> df = spark.read()
+                .format("avro")
+                .load(EXAMPLE_AVRO_FILE);
+
+        ShowDebugInfo.getPartitionAndSchemaInfo(df, 10);
+        return df;
+    }
+
+    /**
      * Потребление данных из xml файла
      */
     public void createDatasetXml() {

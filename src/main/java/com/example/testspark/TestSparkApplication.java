@@ -23,35 +23,47 @@ public class TestSparkApplication {
 
         try (var sc = new JavaSparkContext(sparkConf)) {
 
-            init(sc);
-
+            var elasticSearchExample = new SparkElasticSearchExample(sc);
             var dataConsumption = new DataConsumptionExample(sc);
+            var calculationArea = new CalculationsArea();
+            var datasetExample = new SparkDatasetExample(sc);
+            var rddExample = new SparkRddExample(sc);
+            var sqlExample = new SparkSqlExample(sc);
+
+            init(sc, dataConsumption, elasticSearchExample);
+
+            // dataConsumption
             //dataConsumption.loadParquetFile();
             //dataConsumption.loadOrcFile();
-            dataConsumption.loadAvroFile();
+            //dataConsumption.loadAvroFile();
             //dataConsumption.createStructure();
             //dataConsumption.createDatasetXml();
             //dataConsumption.loadJsonFile();
-            var calculationArea = new CalculationsArea();
+
+            // calculationArea
             //calculationArea.execute();
-            var datasetExample = new SparkDatasetExample(sc);
+
+            // datasetExample
             //datasetExample.conversionOperations();
             //datasetExample.createDatasetExampleModel();
             //datasetExample.createDatasetString();
             //datasetExample.joinDataCsvJson();
             //datasetExample.loadJsonFile();
             //datasetExample.loadCsvFile();
-            var rddExample = new SparkRddExample(sc);
+
+            // rddExample
             //rddExample.readReadmeFile();
-            var sqlExample = new SparkSqlExample(sc);
+
+            // sqlExample
             //sqlExample.readCsvAndSaveToDb();
             //sqlExample.getDataExampleTable();
         }
     }
 
-    private static void init(JavaSparkContext sc) {
+    private static void init(JavaSparkContext sc, DataConsumptionExample dataConsumption, SparkElasticSearchExample elasticSearchExample) {
         //Init.execute(); //создание схемы и таблиц
         //Init.executeElastic(); //создание раздела
+        //Init.initDataElasticSearch(dataConsumption, elasticSearchExample); //заполнение данными
         createCustomUdf(sc); //инициализация кастомных функций
     }
 

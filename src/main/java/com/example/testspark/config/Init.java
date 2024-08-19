@@ -1,11 +1,17 @@
 package com.example.testspark.config;
 
+import com.example.testspark.DataConsumptionExample;
+import com.example.testspark.SparkElasticSearchExample;
 import com.example.testspark.dao.impl.ExampleDAOImpl;
 import com.example.testspark.dao.impl.ExampleElasticDAOImpl;
 import com.example.testspark.dao.interfaces.ExampleDAO;
 import com.example.testspark.dao.interfaces.ExampleElasticDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Init {
+
+    private static final Logger logger = LoggerFactory.getLogger(Init.class);
 
     private Init(){}
 
@@ -43,6 +49,31 @@ public class Init {
             boolean result = exampleElasticDAO.createIndex(indexName);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Метод заполняет бд ElasticSearch данными из файла
+     * @param dataConsumption ссылка на объект DataConsumptionExample
+     * @param elasticSearchExample ссылка на объект SparkElasticSearchExample
+     */
+    public static void initDataElasticSearch(DataConsumptionExample dataConsumption, SparkElasticSearchExample elasticSearchExample) {
+        if (dataConsumption == null || elasticSearchExample == null) {
+            return;
+        }
+        var df = dataConsumption.getAvroFileData();
+        var dfElasticExample = elasticSearchExample.getDatasetElasticExampleModel(df);
+        var dfElasticCache = dfElasticExample.persist();
+        var elasticClient = ElasticMainClient.getInstance();
+        var exampleElasticDAO = new ExampleElasticDAOImpl(elasticClient);
+        var exampleElasticList = dfElasticCache.collectAsList();
+        var exampleModel = exampleElasticDAO.findById(exampleElasticList.get(0).getId());
+        System.out.println(exampleModel);
+        if (exampleModel == null) {
+            exampleElasticDAO.save(dfElasticCache.collectAsList());
+            logger.info("Fill elasticsearch with data. Number of data: {}", exampleElasticList.size());
+        } else {
+            logger.info("Elasticsearch the data already exists");
         }
     }
 }

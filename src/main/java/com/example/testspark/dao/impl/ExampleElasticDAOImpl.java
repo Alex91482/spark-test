@@ -14,6 +14,7 @@ import org.elasticsearch.client.RestClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -98,6 +99,7 @@ public class ExampleElasticDAOImpl implements ExampleElasticDAO {
                 return builder;
             });
             logger.info("Response error: {}", response.errors());
+            System.out.println(response);
         }  catch (Exception e) {
             logger.error("An exception occurred while saving: {}", e.getMessage());
             e.printStackTrace();
@@ -135,6 +137,23 @@ public class ExampleElasticDAOImpl implements ExampleElasticDAO {
             logger.error("Exception at delete by id: {}", e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public ElasticExampleModel findById(Long id) {
+        ElasticExampleModel myTestEntity = null;
+        try(var restClient =  elasticMainClient.getClient()) {
+            var client = getElasticsearchClient(restClient);
+            final var getResponse = client.get(builder -> builder
+                    .index(INDEX)
+                    .id(String.valueOf(id)), ElasticExampleModel.class);
+            myTestEntity = getResponse.source();
+
+        } catch (IOException e) {
+            logger.error("Exception at find by id. Exception: {}, id: {}", e.getMessage(), id);
+            e.printStackTrace();
+        }
+        return myTestEntity;
     }
 
     private ElasticsearchClient getElasticsearchClient(RestClient restClient){

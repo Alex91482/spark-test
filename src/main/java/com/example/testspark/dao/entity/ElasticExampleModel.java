@@ -1,32 +1,59 @@
 package com.example.testspark.dao.entity;
 
+import com.example.testspark.util.serializes.LocalDateDeserializer;
+import com.example.testspark.util.serializes.LocalDateSerializer;
+import com.example.testspark.util.serializes.LocalDateTimeSerializer;
+import com.example.testspark.util.serializes.LocalDatetimeDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class ElasticExampleModel {
 
-    private LocalDateTime registration_dttm; //format 2016-02-04T10:34:07Z
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDatetimeDeserializer.class)
+    private LocalDateTime registrationDttm;
     private Long id;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String email;
     private String gender;
-    private String ip_address;
+    private String ipAddress;
     private Long cc;
     private String country;
-    private LocalDate birthdate; //format 4/23/1980
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate birthdate;
     private Double salary;
     private String title;
     private String comments;
 
-    public LocalDateTime getRegistration_dttm() {
-        return registration_dttm;
+    //private static final DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("M/d/yyyy");
+    //private static final DateTimeFormatter formatterDateTime = DateTimeFormatter.ISO_INSTANT.withZone(ZoneId.systemDefault());
+
+    public LocalDateTime getRegistrationDttm() {
+        return registrationDttm;
     }
 
-    public void setRegistration_dttm(LocalDateTime registration_dttm) {
-        this.registration_dttm = registration_dttm;
+    public void setRegistrationDttm(LocalDateTime registrationDttm) {
+        this.registrationDttm = registrationDttm;
     }
+
+    /*public void setRegistrationDttm(String registrationDttm) {
+        if (registrationDttm == null || registrationDttm.trim().isEmpty()) {
+            return;
+        }
+        try {
+            this.registrationDttm = LocalDateTime.parse(registrationDttm, formatterDateTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
 
     public Long getId() {
         return id;
@@ -36,20 +63,20 @@ public class ElasticExampleModel {
         this.id = id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -68,12 +95,12 @@ public class ElasticExampleModel {
         this.gender = gender;
     }
 
-    public String getIp_address() {
-        return ip_address;
+    public String getIpAddress() {
+        return ipAddress;
     }
 
-    public void setIp_address(String ip_address) {
-        this.ip_address = ip_address;
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 
     public Long getCc() {
@@ -100,6 +127,17 @@ public class ElasticExampleModel {
         this.birthdate = birthdate;
     }
 
+    /*public void setBirthdate(String birthdate) {
+        if (birthdate == null || birthdate.trim().isEmpty()){
+            return;
+        }
+        try {
+            this.birthdate = LocalDate.parse(birthdate, formatterDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
+
     public Double getSalary() {
         return salary;
     }
@@ -125,20 +163,39 @@ public class ElasticExampleModel {
     }
 
     @Override
+    public String toString() {
+        return "ElasticExampleModel{" +
+                "registrationDttm=" + registrationDttm +
+                ", id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", ipAddress='" + ipAddress + '\'' +
+                ", cc=" + cc +
+                ", country='" + country + '\'' +
+                ", birthdate=" + birthdate +
+                ", salary=" + salary +
+                ", title='" + title + '\'' +
+                ", comments='" + comments + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         ElasticExampleModel that = (ElasticExampleModel) o;
 
-        if (!Objects.equals(registration_dttm, that.registration_dttm))
+        if (!Objects.equals(registrationDttm, that.registrationDttm))
             return false;
         if (!Objects.equals(id, that.id)) return false;
-        if (!Objects.equals(first_name, that.first_name)) return false;
-        if (!Objects.equals(last_name, that.last_name)) return false;
+        if (!Objects.equals(firstName, that.firstName)) return false;
+        if (!Objects.equals(lastName, that.lastName)) return false;
         if (!Objects.equals(email, that.email)) return false;
         if (!Objects.equals(gender, that.gender)) return false;
-        if (!Objects.equals(ip_address, that.ip_address)) return false;
+        if (!Objects.equals(ipAddress, that.ipAddress)) return false;
         if (!Objects.equals(cc, that.cc)) return false;
         if (!Objects.equals(country, that.country)) return false;
         if (!Objects.equals(birthdate, that.birthdate)) return false;
@@ -149,13 +206,13 @@ public class ElasticExampleModel {
 
     @Override
     public int hashCode() {
-        int result = registration_dttm != null ? registration_dttm.hashCode() : 0;
+        int result = registrationDttm != null ? registrationDttm.hashCode() : 0;
         result = 31 * result + (id != null ? id.hashCode() : 0);
-        result = 31 * result + (first_name != null ? first_name.hashCode() : 0);
-        result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        result = 31 * result + (ip_address != null ? ip_address.hashCode() : 0);
+        result = 31 * result + (ipAddress != null ? ipAddress.hashCode() : 0);
         result = 31 * result + (cc != null ? cc.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (birthdate != null ? birthdate.hashCode() : 0);

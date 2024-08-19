@@ -14,4 +14,5 @@ public interface ExampleElasticDAO {
     void save(List<ElasticExampleModel> list);
     void update(ElasticExampleModel exampleModel);
     void delete(Long exampleModelId);
+    ElasticExampleModel findById(Long id);
 }
