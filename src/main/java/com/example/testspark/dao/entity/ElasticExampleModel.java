@@ -9,8 +9,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class ElasticExampleModel {
@@ -33,9 +31,6 @@ public class ElasticExampleModel {
     private String title;
     private String comments;
 
-    //private static final DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("M/d/yyyy");
-    //private static final DateTimeFormatter formatterDateTime = DateTimeFormatter.ISO_INSTANT.withZone(ZoneId.systemDefault());
-
     public LocalDateTime getRegistrationDttm() {
         return registrationDttm;
     }
@@ -43,17 +38,6 @@ public class ElasticExampleModel {
     public void setRegistrationDttm(LocalDateTime registrationDttm) {
         this.registrationDttm = registrationDttm;
     }
-
-    /*public void setRegistrationDttm(String registrationDttm) {
-        if (registrationDttm == null || registrationDttm.trim().isEmpty()) {
-            return;
-        }
-        try {
-            this.registrationDttm = LocalDateTime.parse(registrationDttm, formatterDateTime);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
     public Long getId() {
         return id;
@@ -126,17 +110,6 @@ public class ElasticExampleModel {
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
-
-    /*public void setBirthdate(String birthdate) {
-        if (birthdate == null || birthdate.trim().isEmpty()){
-            return;
-        }
-        try {
-            this.birthdate = LocalDate.parse(birthdate, formatterDate);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
     public Double getSalary() {
         return salary;
