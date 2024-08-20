@@ -4,6 +4,7 @@ import com.example.testspark.config.ElasticMainClient;
 import com.example.testspark.dao.entity.ElasticExampleModel;
 import com.example.testspark.dao.impl.ExampleElasticDAOImpl;
 import com.example.testspark.dao.interfaces.ExampleElasticDAO;
+import com.example.testspark.util.ShowDebugInfo;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.MapFunction;
@@ -34,15 +35,32 @@ public class SparkElasticSearchExample {
     }
 
     /**
-     *
+     * Запрос данных из elasticsearch
      */
-    public void getData() {}
+    public void getData() {
+        SparkSession spark = SparkSession.builder()
+                .appName("Data to ElasticSearch")
+                .master("local")
+                .config("spark.es.nodes","127.0.0.1")
+                .config("spark.es.port","9200")
+                .getOrCreate();
+        Dataset<Row> df = spark.read()
+                .format("org.elasticsearch.spark.sql")
+                .option("es.mapping.date.rich", "false")
+                .option("es.nodes.wan.only", "true")
+                .option("es.nodes", "127.0.0.1")
+                .option("es.port", "9200")
+                .option("es.query", "?q=*")
+                .load(exampleElasticDAO.getIndexElasticsearch());
+
+        ShowDebugInfo.getPartitionAndSchemaInfo(df, 10);
+    }
 
     /**
      * Метод заполняет бд тестовыми данными
      * @param exampleModelDataset набор данных ElasticExampleModel который требуется сохранить в бд
      */
-    public void setExampleDataToDB(Dataset<ElasticExampleModel> exampleModelDataset) {
+    public void saveExampleDataToDB(Dataset<ElasticExampleModel> exampleModelDataset) {
         SparkSession spark = SparkSession.builder()
                 .appName("Data to ElasticSearch")
                 .master("local")

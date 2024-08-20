@@ -32,6 +32,9 @@ public class TestSparkApplication {
 
             init(sc, dataConsumption, elasticSearchExample);
 
+            // elasticsearchExample
+            elasticSearchExample.getData();
+
             // dataConsumption
             //dataConsumption.loadParquetFile();
             //dataConsumption.loadOrcFile();
