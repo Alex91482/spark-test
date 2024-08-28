@@ -23,6 +23,7 @@ public class TestSparkApplication {
 
         try (var sc = new JavaSparkContext(sparkConf)) {
 
+            var clickHouseExample = new SparkClickHouseExample(sc);
             var elasticSearchExample = new SparkElasticSearchExample(sc);
             var dataConsumption = new DataConsumptionExample(sc);
             var calculationArea = new CalculationsArea();
@@ -32,8 +33,11 @@ public class TestSparkApplication {
 
             init(sc, dataConsumption, elasticSearchExample);
 
+            // clickhouse
+            //clickHouseExample.getData();
+
             // elasticsearchExample
-            elasticSearchExample.getData();
+            //elasticSearchExample.getData();
 
             // dataConsumption
             //dataConsumption.loadParquetFile();
