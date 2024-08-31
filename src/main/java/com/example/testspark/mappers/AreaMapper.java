@@ -25,7 +25,8 @@ public class AreaMapper implements MapFunction<Row, Double> {
         var point4 = new Tuple2<>(row.getStruct(3).getInt(0), row.getStruct(3).getInt(1));
 
         var pointList = Arrays.asList(point1, point2, point3, point4);
-        return calculatingAreaUsingTheGaussFormula(pointList);
+        var pointListSort = creatingTheSidesOfFigure(pointList);
+        return calculatingAreaUsingTheGaussFormula(pointListSort);
     }
 
     /**
@@ -68,7 +69,7 @@ public class AreaMapper implements MapFunction<Row, Double> {
      * Метод сортирует точки которые образуют неправильный четырехугольник
      * Метод находит сначало крайнюю нижнюю левую точку и крайнюю правую верхнюю точку
      * Далее находим центральнцю верхнюю точку и центральную нижнюю точку
-     * Записываем все это в порядке: нижняя левая, центральная верхняя правая верхняя нижняя центральная
+     * Записываем все это в порядке: нижняя левая, центральная верхняя, правая верхняя, нижняя центральная
      * При обходе отчек по порядку получится обход фигуры по часовой стрелке
      * @param pintList не отсортированый список точек
      * @return возвращаем отсортированые точки

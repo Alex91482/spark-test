@@ -11,6 +11,9 @@ public class SparkExifExample {
 
     public SparkExifExample() {}
 
+    /**
+     * Получение мета данных из фотографий
+     */
     public void getPhotoExifData() {
         SparkSession spark = SparkSession.builder()
                 .appName("exif data")
@@ -24,6 +27,6 @@ public class SparkExifExample {
                 .option("extensions", "jpg")
                 .load(PHOTO_DATA_PATCH);
 
-        ShowDebugInfo.getPartitionAndSchemaInfo(df, 10);
+        ShowDebugInfo.getPartitionAndSchemaInfo(df, 5);
     }
 }

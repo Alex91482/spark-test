@@ -41,9 +41,9 @@ public class CalculationsArea {
                         )
                 )
                 .toDF();
-        ShowDebugInfo.getPartitionAndSchemaInfo(figuresData);
+        ShowDebugInfo.getPartitionAndSchemaInfo(figuresData, 5);
         Dataset<Double> area = figuresData.map(new AreaMapper(), Encoders.DOUBLE());
-        ShowDebugInfo.getPartitionAndSchemaInfo(area);
+        ShowDebugInfo.getPartitionAndSchemaInfo(area, 5);
         double sumArea = area.reduce(new AreaReducer());
         System.out.println("Sum of areas of all quadrilaterals: " + sumArea);
     }
