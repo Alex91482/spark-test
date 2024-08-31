@@ -23,6 +23,7 @@ public class TestSparkApplication {
 
         try (var sc = new JavaSparkContext(sparkConf)) {
 
+            var sparkExifExample = new SparkExifExample();
             var clickHouseExample = new SparkClickHouseExample(sc);
             var elasticSearchExample = new SparkElasticSearchExample(sc);
             var dataConsumption = new DataConsumptionExample(sc);
@@ -32,6 +33,9 @@ public class TestSparkApplication {
             var sqlExample = new SparkSqlExample(sc);
 
             init(sc, dataConsumption, elasticSearchExample);
+
+            //exif
+            //sparkExifExample.getPhotoExifData();
 
             // clickhouse
             //clickHouseExample.getData();
