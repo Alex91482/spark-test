@@ -14,3 +14,6 @@
     Для создания нескольких воркеров используем:
     docker pull spark
     docker run -it spark /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker <тут пишем адрес узла мастера spark://172.29.176.1:7077>
+
+## SparkExifExample
+    Используется пакет com.jpg.spark автора jgp (jgperrin) для извлечения мета данных из фотографий.
