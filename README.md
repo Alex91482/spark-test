@@ -15,6 +15,10 @@
     docker pull spark
     docker run -it spark /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker <тут пишем адрес узла мастера spark://172.29.176.1:7077>
 
+    Если при запуске появилась ошибка Exception in thread “main” java.lang.UnsatisfiedLinkError: org.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Ljava/lang/String;I)Z
+    То один из вариантов устранения этой проблемы добавление hadoop.dll в папку C:/Windows/System32 
+    Не знаю какой репозиторий является для скачивания hadoop.dll верным; предложу такой: https://github.com/kontext-tech/winutils
+
 ## SparkExifExample
     Используется пакет com.jpg.spark автора jgp (jgperrin) для извлечения мета данных из фотографий.
     Добавлено как пример получения данных из нестандартных форматов.

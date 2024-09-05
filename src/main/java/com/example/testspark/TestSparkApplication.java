@@ -2,6 +2,7 @@ package com.example.testspark;
 
 import com.example.testspark.config.Init;
 import com.example.testspark.service.CalculationsArea;
+import com.example.testspark.util.FileHelper;
 import com.example.testspark.util.Md5HashingUtil;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -23,6 +24,7 @@ public class TestSparkApplication {
 
         try (var sc = new JavaSparkContext(sparkConf)) {
 
+            var sparkStreamingExample = new SparkStreamingExample(sc);
             var sparkExifExample = new SparkExifExample();
             var clickHouseExample = new SparkClickHouseExample(sc);
             var elasticSearchExample = new SparkElasticSearchExample(sc);
@@ -34,7 +36,10 @@ public class TestSparkApplication {
 
             init(sc, dataConsumption, elasticSearchExample);
 
-            //exif
+            // streaming
+            sparkStreamingExample.readFileFromDirectory();
+
+            // exif
             //sparkExifExample.getPhotoExifData();
 
             // clickhouse
@@ -75,6 +80,7 @@ public class TestSparkApplication {
         //Init.execute(); //создание схемы и таблиц
         //Init.executeElastic(); //создание раздела
         //Init.initDataElasticSearch(dataConsumption, elasticSearchExample); //заполнение данными
+        FileHelper.createOrCleanTempStreamingDirectory(); //создать или очистить директорию для временных файлов
         createCustomUdf(sc); //инициализация кастомных функций
     }
 
