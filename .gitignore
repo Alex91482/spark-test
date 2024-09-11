@@ -1,5 +1,6 @@
 # Temp directory
-/temp_streaming/
+/temp/temp_streaming/
+/temp/
 
 # Compiled class file
 *.class

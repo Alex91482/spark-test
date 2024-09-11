@@ -21,37 +21,55 @@ public class ThreadFileGenerator {
 
     private static final Logger logger = LoggerFactory.getLogger(ThreadFileGenerator.class);
 
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
-
-    private final int defaultTimeSecondExecute = 60;
+    private ExecutorService executor = Executors.newFixedThreadPool(2);
 
     private final List<String> titles = Arrays.asList("Admin", "Manager", "Backend Developer", "Architect", "Frontend Developer", "DevOps", "ML");
     private final List<String> firstNames = Arrays.asList("Liam", "Noah", "William", "James", "Emma", "Olivia", "Ava", "Isabella");
     private final List<String> lastNames = Arrays.asList("Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson");
 
-    public void execute() {
-        CompletableFuture.runAsync(() -> {
-            long start = System.currentTimeMillis();
-            var executeTime = start + defaultTimeSecondExecute * 1000L;
-            job(executeTime);
-        });
+    public void createFilesInTwoDirectories(final int timeSecondExecute) {
+
+        final var directory1 = FileHelper.getTempStreamingDirectoryPath();
+        final var directory2 = FileHelper.getTempStreamingDirectoryPath2();
+
+        execute(timeSecondExecute, directory1);
+        execute(timeSecondExecute, directory2);
     }
 
-    public void execute(final int timeSecondExecute) {
+    public void createFilesInOneDirectories(final int timeSecondExecute) {
+        if (executor.isShutdown()) {
+            executor = Executors.newFixedThreadPool(2);
+        }
         CompletableFuture.runAsync(() -> {
             try {
+                var directory = FileHelper.getTempStreamingDirectoryPath();
                 var start = System.currentTimeMillis();
                 var executeTime = start + timeSecondExecute * 1000L;
-                job(executeTime);
+                job(executeTime, directory);
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
+        }, executor);
     }
 
-    private void job(long executeTime) {
-        var directory = FileHelper.getTempStreamingDirectoryPath();
+    private void execute(final int timeSecondExecute, final String directory) {
+        if (executor.isShutdown()) {
+            executor = Executors.newFixedThreadPool(2);
+        }
+        CompletableFuture.runAsync(() -> {
+            try {
+                var start = System.currentTimeMillis();
+                var executeTime = start + timeSecondExecute * 1000L;
+                job(executeTime, directory);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, executor);
+    }
+
+    private void job(long executeTime, String directory) {
         while (executeTime > System.currentTimeMillis()) {
             var fileName = directory + UUID.randomUUID() + ".json";
             var list = generateData();
@@ -145,13 +163,10 @@ public class ThreadFileGenerator {
         return lastNames.get(lastNameNumber);
     }
 
-    /*public static void main(String...args) {
-        ThreadFileGenerator threadFileGenerator = new ThreadFileGenerator();
-        threadFileGenerator.execute(30);
-        try {
-            Thread.sleep(30000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
+    /**
+     * Остановить пул потоков
+     */
+    public void shutdownExecutor() {
+        executor.shutdown();
+    }
 }

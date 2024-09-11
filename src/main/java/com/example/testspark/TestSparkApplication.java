@@ -10,6 +10,8 @@ import org.apache.spark.sql.SQLContext;
 import org.apache.spark.sql.api.java.UDF1;
 import org.apache.spark.sql.types.DataTypes;
 
+import java.util.Arrays;
+
 
 public class TestSparkApplication {
 
@@ -37,7 +39,8 @@ public class TestSparkApplication {
             init(sc, dataConsumption, elasticSearchExample);
 
             // streaming
-            sparkStreamingExample.readFileFromDirectory();
+            //sparkStreamingExample.readFileFromDirectory();
+            sparkStreamingExample.multipleReadFileFromDirectory();
 
             // exif
             //sparkExifExample.getPhotoExifData();
@@ -80,7 +83,8 @@ public class TestSparkApplication {
         //Init.execute(); //создание схемы и таблиц
         //Init.executeElastic(); //создание раздела
         //Init.initDataElasticSearch(dataConsumption, elasticSearchExample); //заполнение данными
-        FileHelper.createOrCleanTempStreamingDirectory(); //создать или очистить директорию для временных файлов
+        var directories = Arrays.asList(FileHelper.getTempStreamingDirectoryPath(), FileHelper.getTempStreamingDirectoryPath2());
+        FileHelper.createOrCleanTempStreamingDirectory(directories); //создать или очистить директорию для временных файлов
         createCustomUdf(sc); //инициализация кастомных функций
     }
 
