@@ -40,7 +40,7 @@ public class TestSparkApplication {
 
             // streaming
             //sparkStreamingExample.readFileFromDirectory();
-            sparkStreamingExample.multipleReadFileFromDirectory();
+            //sparkStreamingExample.multipleReadFileFromDirectory();
 
             // exif
             //sparkExifExample.getPhotoExifData();
@@ -74,6 +74,7 @@ public class TestSparkApplication {
             //rddExample.readReadmeFile();
 
             // sqlExample
+            sqlExample.createTempView();
             //sqlExample.readCsvAndSaveToDb();
             //sqlExample.getDataExampleTable();
         }
@@ -89,7 +90,7 @@ public class TestSparkApplication {
     }
 
     /**
-     * Создание ользовательской функции
+     * Создание пользовательской функции
      * @param sc версия SparkContext, совместимая с Java, которая возвращает JavaRDD и работает с коллекциями Java
      */
     private static void createCustomUdf(JavaSparkContext sc) {

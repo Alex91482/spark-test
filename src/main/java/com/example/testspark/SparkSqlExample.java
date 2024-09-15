@@ -9,6 +9,9 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.types.DataTypes;
+import org.apache.spark.sql.types.StructField;
+import org.apache.spark.sql.types.StructType;
 
 import static org.apache.spark.sql.functions.callUDF;
 
@@ -25,6 +28,28 @@ public class SparkSqlExample {
         this.postgresSqlDbConfig = PostgresSqlDbConfig.getSqlDbConfig();
         this.exampleDAO = new ExampleDAOImpl();
         this.sc = sc;
+    }
+
+    /**
+     * Создание представления view для использования sql запроса
+     */
+    public void createTempView() {
+        SparkSession spark = SparkSession.builder()
+                .appName("Sql view")
+                .master("local")
+                .getOrCreate();
+
+        Dataset<Row> df = spark
+                .read()
+                .format("parquet")
+                .load(DataConsumptionExample.getExampleParquetPatch());
+        df.createOrReplaceTempView("parquet_data");
+
+        ShowDebugInfo.getPartitionAndSchemaInfo(df, 5);
+
+        Dataset<Row> selection = spark.sql("SELECT * FROM parquet_data WHERE salary > 150000 and country = 'China' ORDER BY last_name");
+
+        ShowDebugInfo.getPartitionAndSchemaInfo(selection, 10);
     }
 
     /**

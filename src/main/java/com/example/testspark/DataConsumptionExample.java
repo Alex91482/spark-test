@@ -153,4 +153,8 @@ public class DataConsumptionExample {
 
         ShowDebugInfo.getPartitionAndSchemaInfo(df);
     }
+
+    public static String getExampleParquetPatch() {
+        return EXAMPLE_PARQUET_FILE;
+    }
 }
