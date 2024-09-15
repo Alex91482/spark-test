@@ -74,7 +74,8 @@ public class TestSparkApplication {
             //rddExample.readReadmeFile();
 
             // sqlExample
-            sqlExample.createTempView();
+            sqlExample.createGlobalTempView();
+            //sqlExample.createTempView();
             //sqlExample.readCsvAndSaveToDb();
             //sqlExample.getDataExampleTable();
         }

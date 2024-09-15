@@ -31,7 +31,41 @@ public class SparkSqlExample {
     }
 
     /**
-     * Создание представления view для использования sql запроса
+     * Создание глобального представления
+     */
+    public void createGlobalTempView() {
+        SparkSession spark = SparkSession.builder()
+                .appName("Sql global view")
+                .master("local")
+                .getOrCreate();
+
+        Dataset<Row> df = spark
+                .read()
+                .format("parquet")
+                .load(DataConsumptionExample.getExampleParquetPatch());
+        df.createOrReplaceGlobalTempView("parquet_data");
+
+        Dataset<Row> richestEmployees = spark.sql("SELECT country, count(*) as count_records " +
+                "FROM global_temp.parquet_data " +
+                "GROUP BY country " +
+                "ORDER BY count_records DESC" +
+                ";"
+        );
+        ShowDebugInfo.getPartitionAndSchemaInfo(richestEmployees, 10);
+
+        SparkSession spark2 = spark.newSession();
+        Dataset<Row> minStatistics = spark2.sql("" +
+                "SELECT country, AVG(salary) average_salary, MAX(salary) AS maximum_salary, MIN(salary) AS minimum_salary " +
+                "FROM global_temp.parquet_data " +
+                "GROUP BY country " +
+                "ORDER BY country" +
+                ";"
+        );
+        ShowDebugInfo.getPartitionAndSchemaInfo(minStatistics, 10);
+    }
+
+    /**
+     * Создание локального представления view для использования sql запроса
      */
     public void createTempView() {
         SparkSession spark = SparkSession.builder()
