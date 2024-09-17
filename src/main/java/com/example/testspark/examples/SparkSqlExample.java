@@ -1,4 +1,4 @@
-package com.example.testspark;
+package com.example.testspark.examples;
 
 import com.example.testspark.config.PostgresSqlDbConfig;
 import com.example.testspark.dao.impl.ExampleDAOImpl;
@@ -9,9 +9,6 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.types.DataTypes;
-import org.apache.spark.sql.types.StructField;
-import org.apache.spark.sql.types.StructType;
 
 import static org.apache.spark.sql.functions.callUDF;
 

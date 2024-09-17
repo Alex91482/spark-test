@@ -1,4 +1,4 @@
-package com.example.testspark;
+package com.example.testspark.examples;
 
 import com.example.testspark.dao.entity.ExampleModel;
 import com.example.testspark.mappers.ExampleModelMapper;

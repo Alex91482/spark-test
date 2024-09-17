@@ -1,4 +1,4 @@
-package com.example.testspark;
+package com.example.testspark.examples;
 
 import org.apache.spark.api.java.JavaSparkContext;
 import org.slf4j.Logger;

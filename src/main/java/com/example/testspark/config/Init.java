@@ -1,7 +1,7 @@
 package com.example.testspark.config;
 
-import com.example.testspark.DataConsumptionExample;
-import com.example.testspark.SparkElasticSearchExample;
+import com.example.testspark.examples.DataConsumptionExample;
+import com.example.testspark.examples.SparkElasticSearchExample;
 import com.example.testspark.dao.impl.ExampleDAOImpl;
 import com.example.testspark.dao.impl.ExampleElasticDAOImpl;
 import com.example.testspark.dao.interfaces.ExampleDAO;

@@ -1,6 +1,13 @@
 package com.example.testspark;
 
-import com.example.testspark.config.Init;
+import com.example.testspark.examples.DataConsumptionExample;
+import com.example.testspark.examples.SparkClickHouseExample;
+import com.example.testspark.examples.SparkDatasetExample;
+import com.example.testspark.examples.SparkElasticSearchExample;
+import com.example.testspark.examples.SparkExifExample;
+import com.example.testspark.examples.SparkRddExample;
+import com.example.testspark.examples.SparkSqlExample;
+import com.example.testspark.examples.SparkStreamingExample;
 import com.example.testspark.service.CalculationsArea;
 import com.example.testspark.util.FileHelper;
 import com.example.testspark.util.Md5HashingUtil;

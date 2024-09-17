@@ -1,4 +1,4 @@
-package com.example.testspark;
+package com.example.testspark.examples;
 
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -9,7 +9,6 @@ import scala.Tuple2;
 
 import java.util.Arrays;
 import java.util.List;
-
 
 public class SparkRddExample {
 

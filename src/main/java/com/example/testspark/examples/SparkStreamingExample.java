@@ -1,4 +1,4 @@
-package com.example.testspark;
+package com.example.testspark.examples;
 
 import com.example.testspark.foreachwriter.EmployeeChecker;
 import com.example.testspark.generators.ThreadFileGenerator;

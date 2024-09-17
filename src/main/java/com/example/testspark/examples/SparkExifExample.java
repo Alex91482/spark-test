@@ -1,4 +1,4 @@
-package com.example.testspark;
+package com.example.testspark.examples;
 
 import com.example.testspark.util.ShowDebugInfo;
 import org.apache.spark.sql.Dataset;
