@@ -30,7 +30,7 @@ public class TestSparkApplication {
         SparkConf sparkConf = new SparkConf()
                 .setAppName("JavaWordCount")
                 .setMaster("local") //local[1] в скобках указывается количество системных потоков
-                .set("spark.executor.memory","1g");
+                .set("spark.executor.memory","10g");
 
         try (var sc = new JavaSparkContext(sparkConf)) {
 
