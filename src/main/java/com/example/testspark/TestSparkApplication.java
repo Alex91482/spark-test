@@ -104,11 +104,13 @@ public class TestSparkApplication {
      */
     private static void createCustomUdf(JavaSparkContext sc) {
         SQLContext sqlContext= new SQLContext(sc);
+        //хеширование одной из колонок по алгоритму md5
         sqlContext.udf().register(
                 COLUMN_NAME_MD5,
                 (UDF1<String, String>) Md5HashingUtil::getMd5Hash,
                 DataTypes.StringType
         );
+        //подсчет количества символов в колонке
         sqlContext.udf().register(COLUMN_NAME_CHAR_COUNTER, (UDF1<String, Integer>) str -> {
             if (str != null) {
                 return str.length();
