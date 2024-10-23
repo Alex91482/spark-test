@@ -4,7 +4,7 @@ import com.example.testspark.config.ElasticMainClient;
 import com.example.testspark.dao.entity.ElasticExampleModel;
 import com.example.testspark.dao.impl.ExampleElasticDAOImpl;
 import com.example.testspark.dao.interfaces.ExampleElasticDAO;
-import com.example.testspark.util.ShowDebugInfo;
+import com.example.testspark.service.data_analysis.ShowDebugInfo;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.MapFunction;

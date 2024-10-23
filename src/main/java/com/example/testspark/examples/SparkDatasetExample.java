@@ -2,7 +2,7 @@ package com.example.testspark.examples;
 
 import com.example.testspark.dao.entity.ExampleModel;
 import com.example.testspark.mappers.ExampleModelMapper;
-import com.example.testspark.util.ShowDebugInfo;
+import com.example.testspark.service.data_analysis.ShowDebugInfo;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
