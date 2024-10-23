@@ -23,6 +23,7 @@ import java.util.Arrays;
 public class TestSparkApplication {
 
     private static final String COLUMN_NAME_MD5 = "_md5";
+    private static final String COLUMN_NAME_CHAR_COUNTER = "_countChar";
 
     public static void main(String[]args) {
 
@@ -108,5 +109,12 @@ public class TestSparkApplication {
                 (UDF1<String, String>) Md5HashingUtil::getMd5Hash,
                 DataTypes.StringType
         );
+        sqlContext.udf().register(COLUMN_NAME_CHAR_COUNTER, (UDF1<String, Integer>) str -> {
+            if (str != null) {
+                return str.length();
+            } else {
+                return 0;
+            }
+        }, DataTypes.IntegerType);
     }
 }
