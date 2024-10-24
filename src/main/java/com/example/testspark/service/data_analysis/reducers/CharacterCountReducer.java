@@ -4,12 +4,10 @@ import org.apache.spark.api.java.function.ReduceFunction;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.RowFactory;
 
-import java.io.Serial;
 import java.util.ArrayList;
 
 public class CharacterCountReducer implements ReduceFunction<Row>{
 
-    @Serial
     private static final long serialVersionUID = 45679456L;
 
     @Override
