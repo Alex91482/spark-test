@@ -77,12 +77,13 @@ public class TestSparkApplication {
             //datasetExample.joinDataCsvJson();
             //datasetExample.loadJsonFile();
             //datasetExample.loadCsvFile();
+            datasetExample.filterData();
 
             // rddExample
             //rddExample.readReadmeFile();
 
             // sqlExample
-            sqlExample.createGlobalTempView();
+            //sqlExample.createGlobalTempView();
             //sqlExample.createTempView();
             //sqlExample.readCsvAndSaveToDb();
             //sqlExample.getDataExampleTable();

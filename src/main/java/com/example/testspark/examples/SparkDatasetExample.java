@@ -38,6 +38,36 @@ public class SparkDatasetExample {
     }
 
     /**
+     * Эквивалентные способы фильтрации данных
+     */
+    public void filterData() {
+        SparkSession spark = SparkSession.builder()
+                .appName("transformation data")
+                .master("local")
+                .getOrCreate();
+        Dataset<Row> dfData = spark.read()
+                .format("csv")
+                .option("header", true)
+                .option("delimiter", ";")
+                .csv(OPEN_DATA);
+        Dataset<Row> df = dfData.select("Household_ID","Respondent_number","TERRIT", "dx_unique","OKRYG_SV",
+                "SETKA", "POSEL", "GOD", "VESA_DX", "VESA_SVOD");
+
+        df = df.cache();
+
+        Dataset<Row> df1 = df.where("SETKA >= 50 or TERRIT <= 50").persist();
+        Dataset<Row> df2 = df.where(df.col("SETKA").$greater$eq(50).or(df.col("TERRIT").$less$eq(50))).persist();
+        Dataset<Row> df3 = df.filter(df.col("SETKA").$greater$eq(50).or(df.col("TERRIT").$less$eq(50))).persist();
+
+        logger.info("Total number df1: " + df1.count());
+        ShowDebugInfo.getPartitionAndSchemaInfo(df1, 10, false);
+        logger.info("Total number df2: " + df2.count());
+        ShowDebugInfo.getPartitionAndSchemaInfo(df2, 10, false);
+        logger.info("Total number df3: " + df3.count());
+        ShowDebugInfo.getPartitionAndSchemaInfo(df2, 10, false);
+    }
+
+    /**
      * Вычисления максимальной и минимальной оценки, подсчет оценок и прочее
      */
     public void conversionOperations() {
