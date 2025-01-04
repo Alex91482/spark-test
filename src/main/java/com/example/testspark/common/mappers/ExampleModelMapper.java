@@ -1,4 +1,4 @@
-package com.example.testspark.mappers;
+package com.example.testspark.common.mappers;
 
 import com.example.testspark.dao.entity.ExampleModel;
 import org.apache.spark.api.java.function.MapFunction;

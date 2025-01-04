@@ -1,4 +1,4 @@
-package com.example.testspark.mappers;
+package com.example.testspark.common.mappers;
 
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.sql.Row;

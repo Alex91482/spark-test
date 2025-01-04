@@ -1,4 +1,4 @@
-package com.example.testspark.redusers;
+package com.example.testspark.common.redusers;
 
 import org.apache.spark.api.java.function.ReduceFunction;
 

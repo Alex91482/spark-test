@@ -1,7 +1,7 @@
 package com.example.testspark.service;
 
-import com.example.testspark.mappers.AreaMapper;
-import com.example.testspark.redusers.AreaReducer;
+import com.example.testspark.common.mappers.AreaMapper;
+import com.example.testspark.common.redusers.AreaReducer;
 import com.example.testspark.service.data_analysis.ShowDebugInfo;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
