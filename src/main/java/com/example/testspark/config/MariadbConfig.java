@@ -5,29 +5,29 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class PostgresSqlDbConfig {
+public class MariadbConfig {
 
     private Connection connection;
-    private static PostgresSqlDbConfig postgresSqlDbConfig;
+    private static MariadbConfig mariaDbConfig;
     private final Properties properties;
-    private final String DB_URI = "jdbc:postgresql://localhost:5432/postgres";
+    private final String DB_URI = "jdbc:mariadb://localhost:3306";
 
-    private PostgresSqlDbConfig() {
+    private MariadbConfig() {
         this.properties = new Properties();
-        this.properties.setProperty("driver", "org.postgresql.Driver");
-        this.properties.setProperty("user", System.getProperty("db.postgres.user", "user"));
-        this.properties.setProperty("password", System.getProperty("db.postgres.pass", "pgdb"));
+        this.properties.setProperty("driver", "org.mariadb.jdbc.Driver");
+        this.properties.setProperty("user", System.getProperty("db.mariadb.user", "user"));
+        this.properties.setProperty("password", System.getProperty("db.mariadb.pass", "maridb"));
     }
 
     /**
      * Получить экземпляр класса с настройками для подключения к БД
      * @return возвращает экземпляр класса с настройками для подключения к БД
      */
-    public static PostgresSqlDbConfig getSqlDbConfig() {
-        if (postgresSqlDbConfig == null) {
-            postgresSqlDbConfig = new PostgresSqlDbConfig();
+    public static MariadbConfig getMariaDbConfig() {
+        if (mariaDbConfig == null) {
+            mariaDbConfig = new MariadbConfig();
         }
-        return postgresSqlDbConfig;
+        return mariaDbConfig;
     }
 
     /**

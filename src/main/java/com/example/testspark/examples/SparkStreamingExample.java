@@ -103,7 +103,7 @@ public class SparkStreamingExample {
 
     /**
      * Потоковая обработка файлов из директории.
-     * Будет осуществляться поиск новых фвйлов в течении указанного времени executeTime.
+     * Будет осуществляться поиск новых файлов в течении указанного времени executeTime.
      */
     public void readFileFromDirectory() {
         var directory = FileHelper.getTempStreamingDirectoryPath();
